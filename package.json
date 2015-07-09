@@ -1,0 +1,10 @@
+{
+  "name": "openstax",
+  "version": "0.0.0",
+  "description": "Code Test",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "http-server": "^0.8.0"
+  }
+}
