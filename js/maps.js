@@ -10,11 +10,11 @@ var maps = (function(){
   ).addTo(map);
 
   function addMarkers(markerList){
-    // markers.addLayers(markerList);
-    // map.addLayer(markers);
-    markerList.forEach(function(marker){
-      marker.addTo(map);
-    })
+    markers.addLayers(markerList);
+    map.addLayer(markers);
+    // markerList.forEach(function(marker){
+    //   marker.addTo(map);
+    // })
   }
 
   //Set center and zoom
