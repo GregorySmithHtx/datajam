@@ -10,14 +10,15 @@ var maps = (function(){
   ).addTo(map);
 
   function addMarkers(markerList){
-    markers.addLayers(markerList);
-    map.addLayer(markers);
+    // markers.addLayers(markerList);
+    // map.addLayer(markers);
     // markerList.forEach(function(marker){
     //   marker.addTo(map);
     // })
   }
 
-  // L.geoJson(txShapes).addTo(map)
+  var zips = L.geoJson(txShapes).addTo(map);
+  zips.setStyle({fillOpacity:0.0, stroke: .2, opacity: .1});
 
   //Set center and zoom
   map.setView([29.7604, -95.3698], 10);
@@ -25,6 +26,7 @@ var maps = (function(){
   people.loadPeople();
 
   return{
+    zips: zips,
     map: map,
     markers: markers,
     addMarkers: addMarkers

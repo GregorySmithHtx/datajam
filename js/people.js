@@ -24,7 +24,10 @@ var people = (function(){
   }
 
   function showZip(point){
-    //Change opacity for zip with person in it
+    var zip = leafletPip.pointInLayer(point.getLatLng(), maps.zips, true);
+    if(zip.length){
+      zip[0].setStyle({fillOpacity: zip[0].options.fillOpacity + 0.05});
+    }
   }
 
   function showPeople(rows){
@@ -38,7 +41,7 @@ var people = (function(){
       markerList.push(marker);
 
       peopleList.push(new Person(person));
-      showZip([person.lat,person.lon]);
+      showZip(marker);
       addInterests(person.topics);
     });
     
