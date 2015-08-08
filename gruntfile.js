@@ -14,8 +14,15 @@ module.exports = function(grunt){
       css:{
         files: ['css/*.css'],
       }
+    },
+    togeojson: {
+      maps: {
+        files: ['*.kml']
+      }
     }
   });
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-togeojson');
   grunt.registerTask('default', ['watch']);
+  grunt.registerTask('togeojson', ['togeojson']);
 };

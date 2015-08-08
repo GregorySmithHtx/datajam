@@ -17,6 +17,8 @@ var maps = (function(){
     // })
   }
 
+  L.geoJson(txShapes).addTo(map)
+
   //Set center and zoom
   map.setView([29.7604, -95.3698], 10);
 

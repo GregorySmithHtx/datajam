@@ -39,7 +39,7 @@ var people = (function(){
     
     maps.addMarkers(markerList);
     interests.sort();
-    console.log(interests);
+    // console.log(interests);
   }
 
   return{
