@@ -23,6 +23,10 @@ var people = (function(){
     })
   }
 
+  function showZip(point){
+    //Change opacity for zip with person in it
+  }
+
   function showPeople(rows){
     var markerList = [];
     
@@ -34,6 +38,7 @@ var people = (function(){
       markerList.push(marker);
 
       peopleList.push(new Person(person));
+      showZip([person.lat,person.lon]);
       addInterests(person.topics);
     });
     
