@@ -1,6 +1,6 @@
 var people = (function(){
   function loadPeople(){
-    d3.csv("../data.csv")
+    d3.csv("js/data.csv")
       .get(function(error, rows){
         showPeople(rows);});
   }
