@@ -3,8 +3,10 @@ var people = (function(){
   var interests = [];
   var zipList = [];
   var maxCounter = 0;
+  var $alertBox = $('.alert');
 
   function loadPeople(){
+    $alertBox.text('Loading people data...');
     d3.csv("js/data.csv")
       .get(function(error, rows){
         showPeople(rows);});
@@ -13,7 +15,7 @@ var people = (function(){
   function addZip(point){
     var zip = leafletPip.pointInLayer(point.getLatLng(), maps.zips, true),
         zipName;
-
+  
     if(zip.length){
       zipName = zip[0].feature.properties.NAME;
       if(!zipList[zipName]){
@@ -32,6 +34,7 @@ var people = (function(){
 
   function showZips(){
     var max = d3.max(zipList);
+
     zipList.forEach(function(zip, i){
       var opacity = Math.max( Math.ceil(zip.count/maxCounter * 10) / 10 ).toFixed(1);
       zip.layer.setStyle({fillOpacity: opacity})
@@ -40,6 +43,7 @@ var people = (function(){
 
   function showPeople(rows){
     var markerList = [];
+    $alertBox.text('Mapping people')
     
     rows.forEach(function(person){
       var id = person.id;
@@ -52,6 +56,7 @@ var people = (function(){
     });
 
     showZips();
+    $alertBox.hide();
   }
 
   return{

@@ -9,13 +9,14 @@ var maps = (function(){
 
   //Create map layer
   var mainMap = L.tileLayer(
-    'http://api.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=' + access_token
+    'http://api.tiles.mapbox.com/v4/mapbox.light/{z}/{x}/{y}.png?access_token=' + access_token
     ,{}
   ).addTo(map);
   
   map.setView([29.7604, -95.3698], 10);
 
   // function addMarkers(markerList){
+  //   markers.addLayers(markerList);
   //   markerList.forEach(function(marker){
   //     marker.addTo(map);
   //   })
