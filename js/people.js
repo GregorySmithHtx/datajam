@@ -1,6 +1,8 @@
 var people = (function(){
   var peopleList = [];
   var interests = [];
+  var zipList = [];
+  var maxCounter = 0;
 
   function loadPeople(){
     d3.csv("js/data.csv")
@@ -8,26 +10,31 @@ var people = (function(){
         showPeople(rows);});
   }
 
-  function Person(data){
-    this.id = data.id;
-    this.lat = data.lat;
-    this.lon = data.lon;
-    this.interests = data.topics.split(',');
-  }
+  function addZip(point){
+    var zip = leafletPip.pointInLayer(point.getLatLng(), maps.zips, true),
+        zipName;
 
-  function addInterests(topics){
-    topics.split(',').forEach(function(interest){
-      if(interests.indexOf(interest) === -1){
-        interests.push(interest);
-      }
-    })
-  }
-
-  function showZip(point){
-    var zip = leafletPip.pointInLayer(point.getLatLng(), maps.zips, true);
     if(zip.length){
-      zip[0].setStyle({fillOpacity: zip[0].options.fillOpacity + 0.05});
+      zipName = zip[0].feature.properties.NAME;
+      if(!zipList[zipName]){
+        zipList[+zipName] = {};
+        zipList[+zipName].layer = zip[0];
+        zipList[+zipName].count = 1;
+      }else{
+        zipList[+zipName].count++;
+        if(zipList[+zipName].count > maxCounter){
+          maxCounter = zipList[+zipName].count;
+        }
+      }
     }
+  }
+
+  function showZips(){
+    var max = d3.max(zipList);
+    zipList.forEach(function(zip, i){
+      var opacity = Math.max( Math.ceil(zip.count/maxCounter * 10) / 10 ).toFixed(1);
+      zip.layer.setStyle({fillOpacity: opacity})
+    });
   }
 
   function showPeople(rows){
@@ -37,17 +44,13 @@ var people = (function(){
       var id = person.id;
       var marker = L.marker(L.latLng(person.lat, person.lon), { title: id });
       
-      marker.bindPopup(id);
+      //marker.bindPopup(id);
       markerList.push(marker);
-
-      peopleList.push(new Person(person));
-      showZip(marker);
-      addInterests(person.topics);
+      addZip(marker);
+      //maps.addMarkers(markerList);
     });
-    
-    maps.addMarkers(markerList);
-    interests.sort();
-    // console.log(interests);
+
+    showZips();
   }
 
   return{

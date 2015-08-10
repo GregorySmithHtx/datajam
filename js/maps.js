@@ -3,27 +3,32 @@ var maps = (function(){
   var map = L.map('map');
   var markers = L.markerClusterGroup({ chunkedLoading: true });
 
+  /* Please replace this with your personal mapbox access token */ 
+  var access_token = 'pk.eyJ1IjoiZ3JlZ2lzbSIsImEiOiJiNjMwMWE5MWUwOThjOGUxYjIxMzk5Njk3ODBkM2ZjZiJ9.WjgpibCLDnpbg3vjS0MLKw'
+
   //Create map layer
-  L.tileLayer(
-    'http://api.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ3JlZ2lzbSIsImEiOiJiNjMwMWE5MWUwOThjOGUxYjIxMzk5Njk3ODBkM2ZjZiJ9.WjgpibCLDnpbg3vjS0MLKw'
+  var mainMap = L.tileLayer(
+    'http://api.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=' + access_token
     ,{}
   ).addTo(map);
+  
+  map.setView([29.7604, -95.3698], 10);
 
   function addMarkers(markerList){
     // markers.addLayers(markerList);
     // map.addLayer(markers);
-    // markerList.forEach(function(marker){
-    //   marker.addTo(map);
-    // })
+    markerList.forEach(function(marker){
+      marker.addTo(map);
+    })
   }
 
-  var zips = L.geoJson(txShapes).addTo(map);
-  zips.setStyle({fillOpacity:0.0, stroke: .2, opacity: .1});
+  var zips = L.geoJson.ajax('txShapes.geojson');
+  zips.on('data:loaded',function(e){
+    zips.setStyle({opacity:0.0, fillOpacity: 0.0});
+    zips.addTo(map);
+    people.loadPeople();
+  });
 
-  //Set center and zoom
-  map.setView([29.7604, -95.3698], 10);
-
-  people.loadPeople();
 
   return{
     zips: zips,
