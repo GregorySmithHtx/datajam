@@ -19,6 +19,7 @@ var people = (function(){
       if(!zipList[zipName]){
         zipList[+zipName] = {};
         zipList[+zipName].layer = zip[0];
+        zipList[+zipName].layer.bindPopup(zipName);
         zipList[+zipName].count = 1;
       }else{
         zipList[+zipName].count++;

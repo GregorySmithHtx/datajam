@@ -1,6 +1,7 @@
 var maps = (function(){
   //Create map object
   var map = L.map('map');
+  //var markers;
   var markers = L.markerClusterGroup({ chunkedLoading: true });
 
   /* Please replace this with your personal mapbox access token */ 
@@ -14,26 +15,23 @@ var maps = (function(){
   
   map.setView([29.7604, -95.3698], 10);
 
-  function addMarkers(markerList){
-    // markers.addLayers(markerList);
-    // map.addLayer(markers);
-    markerList.forEach(function(marker){
-      marker.addTo(map);
-    })
-  }
+  // function addMarkers(markerList){
+  //   markerList.forEach(function(marker){
+  //     marker.addTo(map);
+  //   })
+  // }
 
   var zips = L.geoJson.ajax('txShapes.geojson');
   zips.on('data:loaded',function(e){
-    zips.setStyle({opacity:0.0, fillOpacity: 0.0});
+    zips.setStyle({opacity:0.0, fillOpacity: 0.0, color: "purple"});
     zips.addTo(map);
     people.loadPeople();
   });
-
 
   return{
     zips: zips,
     map: map,
     markers: markers,
-    addMarkers: addMarkers
+    //addMarkers: addMarkers
   }
 }());
