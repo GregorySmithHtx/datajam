@@ -5,6 +5,8 @@ var people = (function(){
   var maxCounter = 0;
   var $alertBox = $('.alert');
 
+  $alertBox.hide();
+
   function loadPeople(){
     $alertBox.text('Loading people data...');
     d3.csv("js/data.csv")
@@ -52,7 +54,7 @@ var people = (function(){
       //marker.bindPopup(id);
       markerList.push(marker);
       addZip(marker);
-      //maps.addMarkers(markerList);
+      maps.addMarkers(markerList);
     });
 
     showZips();

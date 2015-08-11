@@ -1,6 +1,6 @@
 var maps = (function(){
   //Create map object
-  var map = L.map('map');
+  var map = L.map('map');  
   //var markers;
   var markers = L.markerClusterGroup({ chunkedLoading: true });
 
@@ -15,12 +15,13 @@ var maps = (function(){
   
   map.setView([29.7604, -95.3698], 10);
 
-  // function addMarkers(markerList){
-  //   markers.addLayers(markerList);
-  //   markerList.forEach(function(marker){
-  //     marker.addTo(map);
-  //   })
-  // }
+  function addMarkers(markerList){
+    // markers.addLayers(markerList);
+    // map.addLayer(markers);
+    // markerList.forEach(function(marker){
+    //   marker.addTo(map);
+    // })
+  }
 
   var zips = L.geoJson.ajax('txShapes.geojson');
   zips.on('data:loaded',function(e){
